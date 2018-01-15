@@ -2,17 +2,29 @@
 
 {% block content %}
     <h1>Add New Post</h1>
+
+   
     <form method='post'>
         <div>
         <label> 
-            Title For Your New Blog:
+            
+            Title for your new blog: 
+            <br>
             <input class="pos_title" type="text" name="title" required>
         </label>
         </div>
+        <br>
+        <div>
         <label>
-            New Blog:
-            <input class = "body" type="text" name='body' required/>
+            Your new Blog:
+            <br>
+            <!--<input class="body"type="textarea"name='body'required/> -->
+            <textarea name="body" rows="15" cols="30" wrap="physical" name="comments" required></textarea>
+            <br><br>
+           
+            
         </label>
+        </div>
         <input type="submit" value='Add Entry' />
     </form>
 
