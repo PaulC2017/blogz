@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
+ 
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -28,7 +29,7 @@ def index():
 def blog():
 
     # post = Blog.query.all()
-    post = Blog.query.order_by(id).all
+    post = Blog.query.order_by(Blog.id.desc()).all()
     return render_template('blog.html',title="Blogs R Us!", 
         post=post)
 
@@ -47,8 +48,8 @@ def newpost():
     else: 
         return render_template('add_new_post.html',title="Blogs R Us!")
 
-    post = Blog.query.all()
-    
+    # post = Blog.query.all()
+    post = Blog.query.order_by(Blog.id.desc()).all()
     
     
     return render_template("blog.html",title="Blogs R Us!", post=post)
