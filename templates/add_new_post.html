@@ -6,17 +6,17 @@
         <div>
         <label> 
             Title For Your New Blog:
-            <input type="text" name="title">
+            <input type="text" name="title" required>
         </label>
         </div>
         <label>
             New Blog:
-            <input type="text" name='body' />
+            <input type="text" name='body' required/>
         </label>
         <input type="submit" value='Add Entry' />
     </form>
 
-    <hr />
+    <!--<hr />
 
     {% if post|length == 0 %}
     <p>No Posts yet</p>
@@ -24,16 +24,20 @@
 
         <ul>
             {% for post in post %}
-            <li>{{Blog.name}}
+            <li> {{ post.title }} 
+                <br><br>
+                   {{ post.body }}
+                <br><br>
+                
                 <form method = "POST" action = "/remove-post" style="display:inline-block">
-                     <input type = "hidden" name="post-id" value="{{body.id}}"/>
+                     <input type = "hidden" name="post-id" value="{{post.id}}"/>
                     <input type="submit" value="Done!"/>
                 </form>
             </li>
             {% endfor %}
         </ul>
 
-    {% endif %}
+    {% endif %} -->
 
     
  
