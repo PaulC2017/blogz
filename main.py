@@ -29,7 +29,8 @@ def index():
 def blog():
 
     # post = Blog.query.all()
-    post = Blog.query.order_by(Blog.id.desc()).all()
+    #post = Blog.query.order_by(Blog.id.desc()).all()
+    post = Blog.query.filter_by(removed = False).order_by(Blog.id.desc()).all()
     return render_template('blog.html',title="Blogs R Us!", 
         post=post)
 
@@ -49,12 +50,11 @@ def newpost():
         return render_template('add_new_post.html',title="Blogs R Us!")
 
     # post = Blog.query.all()
-    post = Blog.query.order_by(Blog.id.desc()).all()
-    
+    #post = Blog.query.order_by(Blog.id.desc()).all()
+    post = Blog.query.filter_by(removed = False).order_by(Blog.id.desc()).all()
     
     return render_template("blog.html",title="Blogs R Us!", post=post)
-    # return render_template('add_new_post.html',title="Blogs R Us!", 
-    #  post=post)
+    
 
 
 
@@ -72,11 +72,16 @@ def post():
 @app.route('/remove_post', methods=['POST'])
 def remove_post(): 
 
-    post_id = request.form['post_id']
+    post_id = int(request.form['post_id'])
     post = Blog.query.get(post_id)
-    
+    post.removed = True
+    db.session.add(post)
+    db.session.commit()
 
-    return render_template('/remove_post.html', post_id = post_id)
+    removed_post = Blog.query.get(post_id)
+    removed_post_title = removed_post.title
+    removed_post_body = removed_post.body
+    return render_template('/remove_post.html', removed_post_title=removed_post_title,removed_post_body=removed_post_body  )
 
 
 if __name__ == '__main__':
