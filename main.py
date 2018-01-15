@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
- 
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:build-a-blog@localhost:8889/build-a-blog'
@@ -27,8 +27,8 @@ def index():
 @app.route('/Blog', methods=['POST', 'GET'])
 def blog():
 
-    post = Blog.query.all()
-     
+    # post = Blog.query.all()
+    post = Blog.query.order_by(id).all
     return render_template('blog.html',title="Blogs R Us!", 
         post=post)
 

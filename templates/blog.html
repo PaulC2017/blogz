@@ -9,7 +9,7 @@
     <ul>
         {% for post in post %}
         <li>  
-            <a href = "/show_post?post_body={{post.body}}&post_title={{post.title}}" >{{ post.title }} </a> 
+            <a href = "/show_post?post_body={{post.body}}&post_title={{post.title}}" ><span class="post_title" >{{ post.title }} </span></a> 
  
             <br><br>
                {{ post.body }}
