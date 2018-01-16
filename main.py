@@ -30,9 +30,10 @@ def blog():
 
     # post = Blog.query.all()
     #post = Blog.query.order_by(Blog.id.desc()).all()
+    page_title = "Build-a-Blog"
     post = Blog.query.filter_by(removed = False).order_by(Blog.id.desc()).all()
     return render_template('blog.html',title="Blogs R Us!", 
-        post=post)
+        post=post, page_title = page_title)
 
 
 @app.route('/newpost', methods=['POST', 'GET'])
@@ -47,13 +48,13 @@ def newpost():
         db.session.commit()
 
     else: 
-        return render_template('add_new_post.html',title="Blogs R Us!")
+        return render_template('add_new_post.html',title="Blogs R Us!", page_title = "Add New Post")
 
     # post = Blog.query.all()
     #post = Blog.query.order_by(Blog.id.desc()).all()
     post = Blog.query.filter_by(removed = False).order_by(Blog.id.desc()).all()
     
-    return render_template("blog.html",title="Blogs R Us!", post=post)
+    return render_template("blog.html",title="Blogs R Us!", post=post, page_title = "Add New Post")
     
 
 
@@ -66,7 +67,7 @@ def post():
     #title = post.title
     #body = post.body"""
    
-    return render_template('show_post.html', post_title= post_title, post_body=post_body)
+    return render_template('show_post.html', post_title= post_title, post_body=post_body )
     
 
 @app.route('/remove_post', methods=['POST'])
@@ -81,7 +82,7 @@ def remove_post():
     removed_post = Blog.query.get(post_id)
     removed_post_title = removed_post.title
     removed_post_body = removed_post.body
-    return render_template('/remove_post.html', removed_post_title=removed_post_title,removed_post_body=removed_post_body  )
+    return render_template('/remove_post.html', removed_post_title=removed_post_title,removed_post_body=removed_post_body, page_title = "Archived Post" )
 
 @app.route('/archives', methods=['POST', 'GET'])
 def archives():
@@ -90,7 +91,7 @@ def archives():
     #post = Blog.query.order_by(Blog.id.desc()).all()
     archived_post = Blog.query.filter_by(removed = True).order_by(Blog.id.desc()).all()
     return render_template('archived_posts.html',title="Blogs R Us!", 
-        archived_post=archived_post)
+        archived_post=archived_post, page_title = "Archived Posts")
 
 
 
