@@ -83,6 +83,16 @@ def remove_post():
     removed_post_body = removed_post.body
     return render_template('/remove_post.html', removed_post_title=removed_post_title,removed_post_body=removed_post_body  )
 
+@app.route('/archives', methods=['POST', 'GET'])
+def archives():
+
+    # post = Blog.query.all()
+    #post = Blog.query.order_by(Blog.id.desc()).all()
+    archived_post = Blog.query.filter_by(removed = True).order_by(Blog.id.desc()).all()
+    return render_template('archived_posts.html',title="Blogs R Us!", 
+        archived_post=archived_post)
+
+
 
 if __name__ == '__main__':
     app.run()
