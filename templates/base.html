@@ -12,12 +12,28 @@
             }
         </style>
     </head>
+    
 <body>
     <div>
         <a href='/Blog'>Main Blog Page</a> &nbsp;&nbsp;<a href='/newpost'>Add a Blog entry</a> &nbsp;&nbsp; <a href='/archives'>See archived posts</a>
     </div>
-     
-    <h1 class="page_title">{{page_title}}</h1>
+   
+   
+
+
+     <div style="text-align:right"> 
+        <a  href= "/login">Login</a> &nbsp;&nbsp;<a href='/signup'>Sign Up</a>  
+    </div>
+
+    <h1 class="page_title" >{{page_title}}</h1>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    <ul>
+        {% for category, message in messages %}
+             <li class = "{{category}}" >{{message}}</li>
+        {% endfor %}
+    </ul>
+  {% endwith %}
 
     {% block content %}
     {% endblock %}
