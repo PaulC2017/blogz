@@ -43,7 +43,7 @@ def require_login():
     allowed_routes = ["login", "signup", "index", "newpost", "reqs"]
     if request.endpoint not in allowed_routes: # and "email" not in session:  must add later
         # return redirect("/login")
-        return redirect("login")
+        return redirect("login" )
 
 
 
@@ -105,7 +105,24 @@ def signup():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    return  render_template("login.html")
+    if request.method == 'POST':
+        user_name = request.form["user_name"]
+        password = request.form["password"]
+        users = User.query.filter_by(user_name=user_name)
+        user=users.first()
+        if users.count() != 1:
+            flash('User name does not exist', "error")
+            return redirect("/login")
+        elif password != user.password:
+            flash('Incorrect password', "error")
+            return redirect("/login")
+        else:
+            
+            session['user_name'] = user.user_name
+            flash('welcome back,  ' + user.user_name)
+            return redirect("/newpost")
+             
+    return  render_template("login.html",title="Blogs R Us")
 
 
 @app.route('/logout', methods=['POST', 'GET'])
