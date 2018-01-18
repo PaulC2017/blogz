@@ -96,7 +96,7 @@ def signup():
                  db.session.commit()
                  session["user_name"] = user_Name
                   
-                 return redirect("/newpost" )
+                 return redirect("/newpost")
             else:
                  flash("User ID already exists", "error")  
      
@@ -130,25 +130,23 @@ def blog():
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
-    
+     
     owner = User.query.filter_by(user_name = session["user_name"]).first()
     if request.method == 'POST':
+         
         add_body = request.form['body']
         add_title = request.form['title']
-        user_name = request.form['user_name']
         add_removed = False
-        new_post = Blog(add_title,add_body, add_removed)
+
+        owner = User.query.filter_by(user_name = session["user_name"]).first()
+        user_name = session["user_name"]
+        new_post = Blog(add_title,add_body, add_removed,owner)
         db.session.add(new_post)
         db.session.commit()
-
-    else: 
-        return render_template('add_new_post.html',title="Blogs R Us!", page_title = "new post")
-
-    # post = Blog.query.all()
-    #post = Blog.query.order_by(Blog.id.desc()).all()
-    post = Blog.query.filter_by(removed = False).order_by(Blog.id.desc()).all()
+        return render_template("show_post.html", title="Blogs R Us!", post_title = add_title, post_body = add_body, user_name = user_name, page_title = "")
+    # post = Blog.query.filter_by(owner=owner, removed = False).order_by(Blog.id.desc()).all()
     
-    return render_template("blog.html",title="Blogs R Us!", post=post, page_title = "new post")
+    return render_template("add_new_post.html", title="Blogs R Us!", page_title = "new post")
     
 
 
