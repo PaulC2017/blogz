@@ -3,39 +3,41 @@
     <head>
         <link type="text/css" rel="stylesheet" href={{url_for("static", filename ="style.css")}}/>
         <title>{{title}}</title>
-
-       
+        
+        
         
         <style>
             .error {
                 color:red;
-            }
+        }
         </style>
     </head>
-    
+
 <body>
     <div>
         <a href='/Blog'>Main Blog Page</a> &nbsp;&nbsp;<a href='/newpost'>Add a Blog entry</a> &nbsp;&nbsp; <a href='/archives'>See archived posts</a>
     </div>
-   
-   
-
-
-     <div style="text-align:right"> 
-        <a  href= "/login">Login</a> &nbsp;&nbsp;<a href='/signup'>Sign Up</a>  
+        
+    <div style="text-align:right">
+            {% if 'user_name' in session %}
+                  
+                  <a  href= "/logout">Logout</a>  
+            {% else %} 
+                 <a  href= "/login">Login</a> &nbsp;&nbsp;<a href='/signup'>Sign Up</a>
+            {% endif %}
     </div>
-
+    
     <h1 class="page_title" >{{page_title}}</h1>
-
+    
     {% with messages = get_flashed_messages(with_categories=True) %}
     <ul>
         {% for category, message in messages %}
-             <li class = "{{category}}" >{{message}}</li>
+            <li class = "{{category}}" >{{message}}</li>
         {% endfor %}
     </ul>
-  {% endwith %}
+        {% endwith %}
 
-    {% block content %}
+{% block content %}
     {% endblock %}
 
 </body>

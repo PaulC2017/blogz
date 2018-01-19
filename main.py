@@ -4,7 +4,7 @@ from helpers import *
 import cgi
 
  
-
+# NOTE - STOPPED AT DEVELOPING LOGOUT - MUST FINSIH THAT
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -40,8 +40,8 @@ class Blog(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_routes = ["login", "signup", "index", "newpost", "reqs"]
-    if request.endpoint not in allowed_routes: # and "email" not in session:  must add later
+    allowed_routes = ["login", "signup"]
+    if request.endpoint not in allowed_routes and "user_name" not in session: 
         # return redirect("/login")
         return redirect("login" )
 
@@ -127,6 +127,7 @@ def login():
 
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
+    del session['user_name']
     return  redirect("/Blog")
 
 
