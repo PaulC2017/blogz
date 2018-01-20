@@ -2,7 +2,11 @@
 
 {% block content %}
 
+{% for post in post %}
+  <ul>
+    <li>{{post.user_name}}</li>
+  </ul>
 
-
+{% endfor%}
 
 {% endblock %}

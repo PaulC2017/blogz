@@ -50,7 +50,8 @@ def require_login():
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    return  redirect("/Blog")
+    post = User.query.all()
+    return  render_template("index.html", post=post, title="Blogs R Us")
 
 @app.route("/Reqs", methods = ["GET", "POST"])
 def reqs():
