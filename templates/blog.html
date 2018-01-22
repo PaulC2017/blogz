@@ -9,12 +9,13 @@
     <ul>
         {% for post in post %}
         <li>  
-            <a href = "/show_post?post_body={{post.body}}&post_title={{post.title}}" ><span class="post_title" >{{ post.title }} </span></a> 
+            <a href = "/show_post?post_body={{post.body}}&post_title={{post.title}}&post_id={{post.id}}" ><span class="post_title" >{{ post.title }} </span></a> 
  
             <br><br>
                {{ post.body }}
+                
             <br><br>
-            
+               
             <form method = "POST" action = "/remove_post" style="display:inline-block">
                  <input type="hidden" name="post_id" value="{{post.id}}"/>
                 <input type="submit" value="Archive Post"/>

@@ -1,0 +1,16 @@
+<!--  when a visitor clicks on a user from the home pasge this 
+form is to render all the posts from the user that the visitor clicked on -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+{%for post in posts%}
+<p  class="post_title">{{post.title}}</p>
+        <p>{{post.body}}</p>
+        <p>
+            written by
+            <a href='/show_a_users_posts?user_name={{post.user_name}}&user_id={{post.id}}'> {{user_name}} </a>
+        </p>
+{%endfor%}
+{% endblock %}

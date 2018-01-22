@@ -2,9 +2,10 @@
 
 {% block content %}
 
+
 {% for post in post %}
   <ul>
-    <li>{{post.user_name}}</li>
+    <li><a href = "/show_a_users_posts?user_name={{post.user_name}}&user_id={{post.id}}"> {{post.user_name}} </a></li>
   </ul>
 
 {% endfor%}
