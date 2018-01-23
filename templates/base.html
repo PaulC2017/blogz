@@ -1,20 +1,17 @@
 <!doctype html>
 <html>
     <head>
-        <link type="text/css" rel="stylesheet" href={{url_for("static", filename ="style.css")}}/>
-        <title>{{title}}</title>
+        <link  rel="stylesheet" type="text/css" href="{{url_for("static",filename="static/styles/style.css")}}">
+            
+     </head> 
         
+     <title>{{title}}</title>
+    
+    
         
-        
-        <style>
-            .error {
-                color:red;
-        }
-        </style>
-    </head>
 
 <body>
-    <div>
+    <div >
         <a href='/'>Home</a> &nbsp;&nbsp;<a href='/Blog'>All posts</a>&nbsp;&nbsp;<a href='/newpost'>New Post</a>
     </div>
         

@@ -1,6 +1,6 @@
 .post_title{
 
-    color:blue;
+    color:red;
     font-weight: bold;
       
 }
@@ -14,10 +14,21 @@
 .page_title{
 
     text-align: left;
+    
 }
 .error{
 
     color:red;
     font-weight:bold 
   
+}
+.post_author {
+    font-style: italic;
+    font-size: 12px;
+}
+
+span {
+    color:red;
+    font-weight: bold;
+      
 }

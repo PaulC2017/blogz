@@ -40,7 +40,7 @@ class Blog(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_routes = ["login", 'show_a_users_posts', 'reqs' ,"post", "signup", "index", "blog"]
+    allowed_routes = ["login", 'show_a_users_posts', 'post','reqs' , "signup", "index", "blog"]
     print("ENDPOINT = ", request.endpoint)
     if request.endpoint not in allowed_routes and "user_name" not in session: 
         return redirect("/login" )
@@ -132,16 +132,10 @@ def logout():
     del session['user_name']
     return  redirect("/Blog")
 
-
-
-
-
-
 @app.route('/Blog', methods=['POST', 'GET'])
 def blog():
 
-    # post = Blog.query.all()
-    #post = Blog.query.order_by(Blog.id.desc()).all()
+   
     page_title = "blog posts!"
     post = Blog.query.filter_by(removed = False).order_by(Blog.id.desc()).all()
     

@@ -6,32 +6,21 @@
 <p>No Posts yet</p>
 {% else %}
   
-    <ul>
+        
         {% for post in post %}
-        <li>  
-            <a href = "/show_post?post_body={{post.body}}&post_title={{post.title}}&user_id={{post.owner.id}}&user_name={{post.owner.user_name}}" ><span class="post_title" >{{ post.title }} </span></a> 
- 
-            <br><br>
+        
+            <a  href = "/show_post?post_body={{post.body}}&post_title={{post.title}}&user_id={{post.owner.id}}&user_name={{post.owner.user_name}}"  class="post_title">{{ post.title }}</a> 
+                <br><br>
+          
                {{ post.body }}
-                
-            <br><br>
-                written by
-                <a href= "/show_a_users_posts?user_id={{post.owner.id}}&user_name={{post.owner.user_name}}"> {{post.owner.user_name}}</a>
                
+                <p class="post_author">
+                    written by
+                <a href= "/show_a_users_posts?user_id={{post.owner.id}}&user_name={{post.owner.user_name}}"> {{post.owner.user_name}}</a>
+                </p>
                 
-
-            <!-- <form method = "POST" action = "/remove_post" style="display:inline-block">
-                 <input type="hidden" name="post_id" value="{{post.id}}"/>
-                <input type="submit" value="Archive Post"/> 
-                This code is left over from build-a-blog - where there was an archive ta post feature
-                The archive featuure is not part of this project
-                -->
-                
-            </form>
-            <br><br>
-        </li>
         {% endfor %}
-    </ul>
+    
     
 {% endif %}
    
