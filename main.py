@@ -40,7 +40,7 @@ class Blog(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_routes = ["login", 'show_a_users_posts', 'reshow_a_users_posts' ,"post", "signup", "index", "blog"]
+    allowed_routes = ["login", 'show_a_users_posts', 'reqs' ,"post", "signup", "index", "blog"]
     print("ENDPOINT = ", request.endpoint)
     if request.endpoint not in allowed_routes and "user_name" not in session: 
         return redirect("/login" )
@@ -146,7 +146,7 @@ def blog():
     post = Blog.query.filter_by(removed = False).order_by(Blog.id.desc()).all()
     
     return render_template('blog.html',title="Blogs R Us!", 
-        post=post, page_title = page_title) #, owner_id=owner_id)
+        post=post, page_title = page_title)  
 
 
 @app.route('/newpost', methods=['POST', 'GET'])
@@ -174,12 +174,14 @@ def newpost():
 
 @app.route('/show_post', methods=['POST', 'GET'])
 def post():
-    # show the post an active user just entered
+    # show the post of a registered user just entered or a visitor clicked on
     post_title = request.args.get("post_title")
     post_body = request.args.get("post_body")
-     
-    user_name = session["user_name"]
-    return render_template('show_post.html', post_title= post_title, post_body=post_body,user_name=user_name )
+    user_name = request.args.get("user_name")
+    post_id = request.args.get("user_id")
+    print("POST ID = ", post_id)
+    print("USER NAME ID = ", user_name)
+    return render_template('show_post.html', post_title= post_title, post_body=post_body,user_name=user_name,user_id=post_id )
     
 
 @app.route('/show_a_users_posts', methods=['POST', 'GET'])
@@ -187,8 +189,9 @@ def show_a_users_posts():
     # show all the posts from a specific user
     user_id = request.args.get("user_id")
     user_name = request.args.get("user_name")
-    posts=Blog.query.filter_by(owner_id=user_id).all()
-    return render_template('show_a_users_posts.html', posts=posts, user_name=user_name,  title="Blogs R Us")
+    # posts=Blog.query.filter_by(owner_id=user_id).all()
+    posts = Blog.query.filter_by(removed = False,owner_id=user_id).order_by(Blog.id.desc()).all()
+    return render_template('show_a_users_posts.html', posts=posts,  title="Blogs R Us") #user_name=user_name, 
 
 @app.route('/reshow_a_users_posts', methods=['POST', 'GET'])
 def reshow_a_users_posts():
@@ -196,7 +199,7 @@ def reshow_a_users_posts():
     user_id = request.args.get("user_id")
     user_name = request.args.get("user_name")
     posts=Blog.query.filter_by(owner_id=user_id).all()
-    return render_template('show_a_users_posts.html', posts=posts, user_name=user_name,  title="Blogs R Us")
+    return render_template('show_a_users_posts.html', posts=posts,   title="Blogs R Us") #user_name=user_name,
 
 
 @app.route('/remove_post', methods=['POST'])

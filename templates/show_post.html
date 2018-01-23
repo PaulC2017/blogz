@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+        
         <p  class="post_title">{{post_title}}</p>
         <p>{{post_body}}</p>
         <p>
             written by
-         <a href='/show_post'> {{user_name}} </a>
+         <a href='/show_a_users_posts?user_name={{user_name}}&user_id={{user_id}}'> {{user_name}} </a>
         </p>
 
 
