@@ -1,20 +1,18 @@
 .post_title{
 
-    color:red;
+    color:blue;
     font-weight: bold;
-      
+    margin-left: 250px;
 }
 
 .body{
 
     height:200px;
     width:200px;
-  
+     
 }
 .page_title{
-
-    text-align: left;
-    
+    margin-left: 250px;
 }
 .error{
 
@@ -25,10 +23,9 @@
 .post_author {
     font-style: italic;
     font-size: 12px;
+    margin-left: 250px;
 }
 
-span {
-    color:red;
-    font-weight: bold;
-      
+.post_body{
+    margin-left: 250px;
 }

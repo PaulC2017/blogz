@@ -8,26 +8,22 @@
      <title>{{title}}</title>
     
     
-        
-
 <body>
-    <div >
-        <a href='/'>Home</a> &nbsp;&nbsp;<a href='/Blog'>All posts</a>&nbsp;&nbsp;<a href='/newpost'>New Post</a>
-    </div>
-        
-    <div style="text-align:right">
+    <span style="margin-left: 250px;">
+       <a href='/'>Home</a> &nbsp;&nbsp;<a href='/Blog'>All posts</a>&nbsp;&nbsp;<a href='/newpost'>New Post</a>
+    </span>
+    <span style="margin-left:450px;">
             {% if 'user_name' in session %}
-                  
-                  <a  href= "/logout">Logout</a> <a href="/">Home</a>
+                  <a  href= "/logout">Logout</a>  
             {% else %} 
                  <a  href= "/login">Login</a> &nbsp;&nbsp;<a href='/signup'>Sign Up</a>
             {% endif %}
-    </div>
+    </span>
     
     <h1 class="page_title" >{{page_title}}</h1>
     
     {% with messages = get_flashed_messages(with_categories=True) %}
-    <ul>
+    <ul class="post_body">
         {% for category, message in messages %}
             <li class = "{{category}}" >{{message}}</li>
         {% endfor %}

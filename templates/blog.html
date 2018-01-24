@@ -6,13 +6,13 @@
 <p>No Posts yet</p>
 {% else %}
   
-        
+      
         {% for post in post %}
         
             <a  href = "/show_post?post_body={{post.body}}&post_title={{post.title}}&user_id={{post.owner.id}}&user_name={{post.owner.user_name}}"  class="post_title">{{ post.title }}</a> 
                 <br><br>
           
-               {{ post.body }}
+               <p class="post_body">{{ post.body }} </p>
                
                 <p class="post_author">
                     written by
