@@ -11,9 +11,9 @@ form is to render all the posts from the user that the visitor clicked on -->
 
 {%for post in posts%}
 <p>
-        <li><a href='/show_post?user_name={{post.owner.user_name}}&user_id={{post.owner.id}}&post_title={{post.title}}&post_body={{post.body}}'class="post_title">   {{post.title}}</a>
+        <a href='/show_post?user_name={{post.owner.user_name}}&user_id={{post.owner.id}}&post_title={{post.title}}&post_body={{post.body}}'class="post_title">   {{post.title}}</a>
                 
-        </li>    
+           
 </p>
         <p class="post_body">{{post.body}}</p>
         <p class="post_author">
