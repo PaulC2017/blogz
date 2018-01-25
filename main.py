@@ -52,11 +52,11 @@ def require_login():
 def index():
     # render list of all blog user ids
     post = User.query.all()
-    return  render_template("index.html", post=post, page_title="blog users!", title="Blogs R Us")
+    return  render_template("index.html", post=post, page_title="blog users!", title="Blogz R Us")
 
 @app.route("/Reqs", methods = ["GET", "POST"])
 def reqs():
-  return render_template("input_req.html", titel="Blogz Input Requirements")
+  return render_template("input_req.html", title="Blogz Signup Requirements")
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -87,7 +87,7 @@ def signup():
 
          if input_error:
             
-            return render_template("signup.html" , un_error = un_message, pw_error = pw_message, vp_error = vp_message, uName = user_Name )
+            return render_template("signup.html" , title="Sign up for Blogz", un_error = un_message, pw_error = pw_message, vp_error = vp_message, uName = user_Name )
          else:
 
             existing_user=User.query.filter_by(user_name=user_Name).first()
@@ -107,7 +107,7 @@ def signup():
             else:
                  flash("User ID already exists", "error")  
      
-     return  render_template("signup.html" )
+     return  render_template("signup.html", title="Sign up for Blogz" )
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -130,7 +130,7 @@ def login():
             flash('welcome back,  ' + user.user_name)
             return redirect("/newpost")
              
-    return  render_template("login.html",title="Blogs R Us")
+    return  render_template("login.html",title="Log in to Blogz R Us")
 
 
 @app.route('/logout', methods=['POST', 'GET'])
@@ -166,21 +166,14 @@ def newpost():
         db.session.add(new_post)
         db.session.commit()
         
-        return render_template("show_post.html", title="Blogs R Us!", post_title = add_title, post_body = add_body, user_name = user_name,user_id = user_id, page_title = "")
+        return render_template("show_post.html", title="Add post to Blogz R Us!", post_title = add_title, post_body = add_body, user_name = user_name,user_id = user_id, page_title = "")
     
-    print("")
-    print( "REQUEST.ARGS.GET(title) = ", request.args.get("title") )
-    print()
-
-    #if request.args.get('title') != "None":
+   
     
-    #  add_body = request.args.get('body')
-    #   add_title = request.args.get('title')
-    #else:
     add_body="post"
     add_title="title"    
     add_removed = False
-    return render_template("add_new_post.html", title="Blogs R Us!", page_title = "new post",post_title=add_title,body=add_body)
+    return render_template("add_new_post.html", title="Add post to Blogz R Us!", page_title = "new post",post_title=add_title,body=add_body)
     
 
 
@@ -194,7 +187,7 @@ def post():
     post_id = request.args.get("user_id")
     print("POST ID = ", post_id)
     print("USER NAME ID = ", user_name)
-    return render_template('show_post.html', post_title= post_title, post_body=post_body,user_name=user_name,user_id=post_id )
+    return render_template('show_post.html',title="Blogz R Us", post_title= post_title, post_body=post_body,user_name=user_name,user_id=post_id )
     
 
 @app.route('/show_a_users_posts', methods=['POST', 'GET'])
@@ -206,7 +199,7 @@ def show_a_users_posts():
     
     # posts=Blog.query.filter_by(owner_id=user_id).all()
     posts = Blog.query.filter_by(removed = False,owner_id=user_id).order_by(Blog.id.desc()).all()
-    return render_template('show_a_users_posts.html', posts=posts,  title="Blogs R Us") #user_name=user_name, 
+    return render_template('show_a_users_posts.html',title="The posts you wanted to see",  posts=posts   ) #user_name=user_name, 
 
 
 
