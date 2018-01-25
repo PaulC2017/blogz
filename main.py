@@ -96,8 +96,13 @@ def signup():
                  new_user=User(user_Name,p_Word)
                  db.session.add(new_user)
                  db.session.commit()
+                 user_id=new_user.id  # capture id for rendering of users very first post
                  session["user_name"] = user_Name
-                  
+                 session["user_id"] = user_id
+                 
+                 print("")
+                 print("THE ID OF THE NEW USER IS = ", user_id)
+                 print("")
                  return redirect("/newpost")
             else:
                  flash("User ID already exists", "error")  
@@ -121,6 +126,7 @@ def login():
         else:
             
             session['user_name'] = user.user_name
+            session['user_id'] = user.id
             flash('welcome back,  ' + user.user_name)
             return redirect("/newpost")
              
@@ -155,13 +161,26 @@ def newpost():
 
         owner = User.query.filter_by(user_name = session["user_name"]).first()
         user_name = session["user_name"]
+        user_id = session["user_id"]
         new_post = Blog(add_title,add_body, add_removed,owner)
         db.session.add(new_post)
         db.session.commit()
-        return render_template("show_post.html", title="Blogs R Us!", post_title = add_title, post_body = add_body, user_name = user_name, page_title = "")
-    # post = Blog.query.filter_by(owner=owner, removed = False).order_by(Blog.id.desc()).all()
+        
+        return render_template("show_post.html", title="Blogs R Us!", post_title = add_title, post_body = add_body, user_name = user_name,user_id = user_id, page_title = "")
     
-    return render_template("add_new_post.html", title="Blogs R Us!", page_title = "new post")
+    print("")
+    print( "REQUEST.ARGS.GET(title) = ", request.args.get("title") )
+    print()
+
+    #if request.args.get('title') != "None":
+    
+    #  add_body = request.args.get('body')
+    #   add_title = request.args.get('title')
+    #else:
+    add_body="post"
+    add_title="title"    
+    add_removed = False
+    return render_template("add_new_post.html", title="Blogs R Us!", page_title = "new post",post_title=add_title,body=add_body)
     
 
 
@@ -181,19 +200,15 @@ def post():
 @app.route('/show_a_users_posts', methods=['POST', 'GET'])
 def show_a_users_posts():
     # show all the posts from a specific user
-    user_id = request.args.get("user_id")
     user_name = request.args.get("user_name")
+    user_id = request.args.get("user_id")
+     
+    
     # posts=Blog.query.filter_by(owner_id=user_id).all()
     posts = Blog.query.filter_by(removed = False,owner_id=user_id).order_by(Blog.id.desc()).all()
     return render_template('show_a_users_posts.html', posts=posts,  title="Blogs R Us") #user_name=user_name, 
 
-@app.route('/reshow_a_users_posts', methods=['POST', 'GET'])
-def reshow_a_users_posts():
-    # reshow all the posts from a specific user
-    user_id = request.args.get("user_id")
-    user_name = request.args.get("user_name")
-    posts=Blog.query.filter_by(owner_id=user_id).all()
-    return render_template('show_a_users_posts.html', posts=posts,   title="Blogs R Us") #user_name=user_name,
+
 
 
 @app.route('/remove_post', methods=['POST'])

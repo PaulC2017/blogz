@@ -5,6 +5,10 @@ form is to render all the posts from the user that the visitor clicked on -->
 
 {% block content %}
 
+{% if posts|length == 0 %}
+    <p class="post_body">No posts yet</p>
+{% else %}
+
 {%for post in posts%}
 <p>
         <li><a href='/show_post?user_name={{post.owner.user_name}}&user_id={{post.owner.id}}&post_title={{post.title}}&post_body={{post.body}}'class="post_title">   {{post.title}}</a>
@@ -12,9 +16,10 @@ form is to render all the posts from the user that the visitor clicked on -->
         </li>    
 </p>
         <p class="post_body">{{post.body}}</p>
-        <li class="post_author">
+        <p class="post_author">
             written by
             <a href='/show_a_users_posts?user_name={{post.owner.user_name}}&user_id={{post.owner.id}}'> {{post.owner.user_name}} </a>
-        </li>
+        </p>
 {%endfor%}
+{%endif%}
 {% endblock %}
