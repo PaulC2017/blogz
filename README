@@ -1,0 +1,12 @@
+Description
+
+This project created a Blog web site.  Users can register on the site, login and post blogs.  
+Visitors to the site can see a list of users who have registered on the site, as well as view all 
+the blog posts entered, or view all blog posts from a single user.
+
+Languages and Technologies
+
+This project uses Python3, Flask and Jinja2 for the routing, templates and controllers.  SQLAlchemy
+is used to manage the data base housing user and blog data.
+
+This Blog site can be viewed at www.privateid.pythonanywhere.com
